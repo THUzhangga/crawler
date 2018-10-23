@@ -15,7 +15,7 @@ class JdPipeline(object):
             img = requests.get('http:' + link)
             name = item['name']
             key_eng = item['key_eng'].strip()
-            img_path = f'img/{key_eng.strip()}'
+            img_path = os.path.join(os.getcwd(), f'img/{key_eng.strip()}')
             if os.path.exists(img_path) == False:
                 os.mkdir(img_path)
             file_num = len(os.listdir(img_path))
