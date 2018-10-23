@@ -17,7 +17,7 @@ class JdPipeline(object):
             key_eng = item['key_eng'].strip()
             img_path = os.path.join(os.getcwd(), f'img/{key_eng.strip()}')
             if os.path.exists(img_path) == False:
-                os.mkdir(img_path)
+                os.makedirs(img_path)
             file_num = len(os.listdir(img_path))
             with open(f'{img_path}/{key_eng}_{file_num}.jpg', 'wb') as file:
                 file.write(img.content)
