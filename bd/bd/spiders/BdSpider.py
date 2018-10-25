@@ -3,8 +3,14 @@ from bd.items import BdItem
 import json
 from urllib.parse import unquote
 import requests
+import pandas as pd
 
-keyword = ['江泽民','习近平']
+trans = pd.read_excel('trans_3.xlsx')
+keywords_eng = trans['eng'].values
+keywords = trans['chn'].values
+keywords_dict = {}
+for key, key_eng in zip(keywords, keywords_eng):
+    keywords_dict[key] = key_eng.strip()
 
 class BdSpider(scrapy.Spider):
     name = 'bd'
@@ -21,8 +27,8 @@ class BdSpider(scrapy.Spider):
     #         except Exception as e:
     #             print('error')
     start_urls = []
-    for key in keyword:
-        for i in range(0, 10, 1):
+    for key in keywords:
+        for i in range(0, 451, 30):
             start_urls.append('https://image.baidu.com/search/acjson?tn=resultjson_com&ipn=rj&ct=201326592&is=&fp=result&queryWord=%s&cl=2&lm=-1&ie=utf-8&oe=utf-8&adpicid=&st=-1&z=&ic=0&word=%s&s=&se=&tab=&width=&height=&face=0&istype=2&qc=&nc=1&fr=&pn=%d' % (
                 key, key, i))
     def parse(self, response):
@@ -33,6 +39,7 @@ class BdSpider(scrapy.Spider):
             try:
                 item['IMG_URL'] = img['middleURL']
                 item['key'] = unquote(queryenc)
+                item['key_eng'] = keywords_dict[item['key']]
                 yield item
             except Exception as e:
                 print('error')

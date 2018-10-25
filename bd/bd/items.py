@@ -12,5 +12,6 @@ class BdItem(scrapy.Item):
     # define the fields for your item here like:
     IMG_URL = scrapy.Field()
     key = scrapy.Field()
+    key_eng = scrapy.Field()
     img = scrapy.Field()
     pass
