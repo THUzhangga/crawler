@@ -1,7 +1,7 @@
 import scrapy
 from jd.items import JdItem
 import pandas as pd
-trans = pd.read_excel('trans_3.xlsx')
+trans = pd.read_excel('attr_list.xlsx')
 ENG = trans['eng'].values
 CHN = trans['chn'].values
 class JdSpider(scrapy.Spider):

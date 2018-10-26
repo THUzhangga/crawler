@@ -5,7 +5,7 @@ from urllib.parse import unquote
 import requests
 import pandas as pd
 
-trans = pd.read_excel('trans_3.xlsx')
+trans = pd.read_excel('attr_list.xlsx')
 keywords_eng = trans['eng'].values
 keywords = trans['chn'].values
 keywords_dict = {}
@@ -28,7 +28,7 @@ class BdSpider(scrapy.Spider):
     #             print('error')
     start_urls = []
     for key in keywords:
-        for i in range(0, 451, 30):
+        for i in range(0, 151, 30):
             start_urls.append('https://image.baidu.com/search/acjson?tn=resultjson_com&ipn=rj&ct=201326592&is=&fp=result&queryWord=%s&cl=2&lm=-1&ie=utf-8&oe=utf-8&adpicid=&st=-1&z=&ic=0&word=%s&s=&se=&tab=&width=&height=&face=0&istype=2&qc=&nc=1&fr=&pn=%d' % (
                 key, key, i))
     def parse(self, response):
